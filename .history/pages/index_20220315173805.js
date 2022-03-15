@@ -116,7 +116,7 @@ const columns = [
         const val = valute.map(item => {
           const inter = ((item.Value - item.Previous).toFixed(3) / item.Value).toFixed(3)
           if (inter > 0) {
-            inter = `+${inter}`
+            return inter = `+${inter}`
           }
     return {
       ...item,

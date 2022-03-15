@@ -28,7 +28,6 @@ const columns = [
     title: 'Процент по отношению ко вчерашнему дню',
     dataIndex: 'interest',
     width: '30%',
-
   },
 
 ];
@@ -113,20 +112,13 @@ const columns = [
         for (let key in persons) {
               valute.push(persons[key]);
             }
-        const val = valute.map(item => {
-          const inter = ((item.Value - item.Previous).toFixed(3) / item.Value).toFixed(3)
-          if (inter > 0) {
-            inter = `+${inter}`
-          }
+        setData(valute)
+      })
+      valute.map(item => {
     return {
       ...item,
-      interest:`${inter}%`
-    }
+      interest:item.Values - item.Previous}
     })
-        setData(val)
-        
-      })
-     
     }, [])
 
   

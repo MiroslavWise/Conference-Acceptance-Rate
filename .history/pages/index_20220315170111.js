@@ -26,9 +26,8 @@ const columns = [
   },
   {
     title: 'Процент по отношению ко вчерашнему дню',
-    dataIndex: 'interest',
+    dataIndex: 'Nominal',
     width: '30%',
-
   },
 
 ];
@@ -92,18 +91,19 @@ const columns = [
 
 
 
-  //   useEffect(()=>{
-  //     axios.get(`https://www.cbr-xml-daily.ru/archive/2022/02/11/daily_json.js`)
-  //   .then(res => {
-  //     const persons = res.data.Valute; 
-  //     const valute = []
-  //     for (let key in persons) {
-  //           valute.push(persons[key]);
-  //         }
-  //     setPrev(valute)
-  //   })
-    
-  // }, [])
+    useEffect(()=>{
+      axios.get(`https://www.cbr-xml-daily.ru/archive/2022/02/11/daily_json.js`)
+    .then(res => {
+      const persons = res.data.Valute; 
+      const valute = []
+      for (let key in persons) {
+            valute.push(persons[key]);
+          }
+      setPrev(valute)
+    })
+  }, [])
+
+  console.log(prev)
 
     useEffect(()=>{
         axios.get(`https://www.cbr-xml-daily.ru/daily_json.js`)
@@ -113,26 +113,10 @@ const columns = [
         for (let key in persons) {
               valute.push(persons[key]);
             }
-        const val = valute.map(item => {
-          const inter = ((item.Value - item.Previous).toFixed(3) / item.Value).toFixed(3)
-          if (inter > 0) {
-            inter = `+${inter}`
-          }
-    return {
-      ...item,
-      interest:`${inter}%`
-    }
-    })
-        setData(val)
-        
+        setData(valute)
       })
-     
     }, [])
 
-  
-
-
-console.log(data)
  return (<div>
     <h4>Курс Валют</h4>
     <Table columns={columns} dataSource={'loading' && data} size="middle" pagination={{
